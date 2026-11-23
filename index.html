@@ -6,11 +6,11 @@
 <meta name="description" content="ติดตามพัสดุ ร้าน Coach brandname by Preaw yara กระเป๋าแบรนด์เนมของแท้">
 <meta property="og:title" content="ติดตามพัสดุ · Coach brandname by Preaw yara">
 <meta property="og:description" content="กดเพื่อดูเลขพัสดุและสถานะการจัดส่งของคุณ">
-<meta property="og:image" content="https://preawyara.vercel.app/logo.jpg">
+<meta property="og:image" content="https://preawyarashop.vercel.app/logo.jpg">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://preawyara.vercel.app/">
-<link rel="icon" href="/logo.jpg">
-<link rel="apple-touch-icon" href="/logo.jpg">
+<meta property="og:url" content="https://preawyarashop.vercel.app/">
+<link rel="icon" href="IMG_8850.jpeg">
+<link rel="apple-touch-icon" href="IMG_8850.jpeg">
 <title>ติดตามพัสดุ · Coach brandname by Preaw yara</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -97,7 +97,7 @@
       <a class="btn" id="cTrackBtn" target="_blank" rel="noopener">ดูสถานะล่าสุด ↗</a>
       <div class="note">กดปุ่มด้านบนเพื่อดูสถานะจริงจากระบบขนส่ง<br>ได้รับของแล้ว ฝากรีวิวให้ร้านด้วยนะคะ 💖</div>
     </div>
-    <button class="btn ghost" onclick="goHome()">ค้นหาเลขพัสดุอื่น</button>
+    <button class="btn ghost hidden" id="backShop" onclick="goHome()">← กลับไปหน้าสร้างลิงก์ (เห็นเฉพาะร้าน)</button>
   </section>
 
   <!-- หน้าหลัก -->
@@ -258,7 +258,8 @@ function makeLink(){
   document.getElementById('gMsg').textContent=msg;
   document.getElementById('gResult').classList.remove('hidden');
 }
-function openPreview(){ if(lastLink){location.hash=lastLink.split('#')[1]; route(); window.scrollTo(0,0);} }
+let previewing=false;
+function openPreview(){ if(lastLink){previewing=true;location.hash=lastLink.split('#')[1]; route(); window.scrollTo(0,0);} }
 
 function route(){
   const m=location.hash.match(/^#p([0-9a-zA-Z]{6,})$/);
@@ -287,8 +288,9 @@ function route(){
     r.append(x,y); box.append(r);
   });
   document.getElementById('cTrackBtn').href=car.url(state.t);
+  document.getElementById('backShop').classList.toggle('hidden',!previewing);
 }
-function goHome(){ location.hash='home'; route(); window.scrollTo(0,0); }
+function goHome(){ previewing=false; location.hash='home'; route(); window.scrollTo(0,0); }
 window.addEventListener('hashchange',route);
 route();
 
